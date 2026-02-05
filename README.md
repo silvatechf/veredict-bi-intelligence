@@ -1,11 +1,11 @@
-# ⚖️ Veredict BI — Inteligencia Neural de Decisión
+#  Veredict BI — Inteligencia Neural de Decisión
 
 **Veredict BI** es una plataforma soberana de **inteligencia de decisión para reclutamiento**, diseñada para automatizar la **preselección y el ranking de talento a escala global**.  
 Mediante una arquitectura de **microservicios** y **orquestación avanzada de LLMs**, transforma currículos no estructurados en **activos de datos estratégicos**.
 
 ---
 
-## 🚀 Diferenciales Clave
+##  Diferenciales Clave
 
 - **Neural Arena Re-Ranking**  
   Recalcula en tiempo real el *match* de toda la base de candidatos ante cualquier cambio en la vacante (JD).
@@ -22,7 +22,7 @@ Mediante una arquitectura de **microservicios** y **orquestación avanzada de LL
 
 ---
 
-## 🛠️ Stack Tecnológico
+##  Stack Tecnológico
 
 **IA (Python)**  
 - FastAPI · LangChain · Groq · Pydantic
@@ -35,7 +35,7 @@ Mediante una arquitectura de **microservicios** y **orquestación avanzada de LL
 
 ---
 
-## 🏛️ Arquitectura
+##  Arquitectura
 
 ![arq](assets/img1.png)
 
@@ -49,11 +49,14 @@ Mediante una arquitectura de **microservicios** y **orquestación avanzada de LL
 
 ---
 
-## 🛡️ Gobernanza y Privacidad
+##  Gobernanza y Privacidad
 
 Implementa **Node Identity**, asignando identidades únicas y anonimizadas a cada candidato antes del procesamiento en la nube.
 
 ---
 
-**Autor:** [Tu Nombre]  
+**Autor:** FERNANDO SILVA  
 *Ingeniero de Software especializado en IA de Decisión y Sistemas de Alto Rendimiento*
+
+https://www.linkedin.com/in/fernando-silva-83b155a4/
+
