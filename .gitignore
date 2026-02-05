@@ -1,0 +1,65 @@
+# ==========================================================
+# SEGURANÇA (jamais subir)
+# ==========================================================
+.env
+.env.local
+.env.development.local
+.env.production.local
+# Ignora arquivos de ambiente específicos, mas permite o .env.example
+.env.backup
+.env.old
+*.pem
+*.key
+*.pub
+/certs/
+
+# ==========================================================
+# GERAL: IDEs e SO
+# ==========================================================
+.DS_Store
+.vscode/
+.idea/
+*.iml
+Thumbs.db
+*.log
+
+# ==========================================================
+# BACKEND (Java/Maven)
+# ==========================================================
+**/target/
+**/bin/
+*.class
+.factorypath
+.project
+.settings/
+.classpath
+# Maven wrapper
+.mvn/
+
+# ==========================================================
+# AI ENGINE (Python)
+# ==========================================================
+**/__pycache__/
+*.py[cod]
+*$py.class
+**/.venv/
+**/venv/
+**/env/
+.pytest_cache/
+.python-version
+
+# ==========================================================
+# FRONTEND (Node/Next.js)
+# ==========================================================
+**/node_modules/
+**/.next/
+**/build/
+**/dist/
+.vercel
+
+# ==========================================================
+# DOCKER & DATABASE
+# ==========================================================
+.docker/
+pgdata/
+postgres-data/

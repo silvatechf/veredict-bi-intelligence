@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  backend:
+    env_file:
+      - .env  
+    environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+  # --- BANCO DE DADOS (POSTGRES) ---
+  database:
+    image: postgres:15-alpine
+    container_name: ajh_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ajh_user
+      POSTGRES_PASSWORD: ajh_password
+      POSTGRES_DB: ajh_db
+    ports:
+      - "5436:5432" 
+    volumes:
+      - ajh_database_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ajh_user -d ajh_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ajh-network
+
+  # --- MOTOR DE IA (PYTHON/FASTAPI) ---
+  ai-engine:
+    container_name: ajh_ai_engine
+    build:
+      context: ./ai-engine
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    # Injeção direta para evitar erros de leitura de arquivo .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app/src
+      # SUBSTITUA O VALOR ABAIXO PELA SUA CHAVE REAL gsk_...
+      - GROQ_API_KEY=${GROQ_API_KEY}
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - ajh-network
+
+networks:
+  ajh-network:
+    driver: bridge
+
+volumes:
+  ajh_database_data:

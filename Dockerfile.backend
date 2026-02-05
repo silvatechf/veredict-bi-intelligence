@@ -1,0 +1,34 @@
+# Stage 1: Build com Maven e JDK 21
+FROM eclipse-temurin:21-jdk-alpine AS builder
+WORKDIR /app
+
+# Instala dependências necessárias
+RUN apk add --no-cache curl tar bash
+
+# Instala o Maven
+ARG MAVEN_VERSION=3.9.6
+RUN curl -fsSL https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz | tar -xzf - -C /opt && \
+    ln -s /opt/apache-maven-${MAVEN_VERSION}/bin/mvn /usr/bin/mvn
+
+# 1. Copia o pom.xml PRIMEIRO para aproveitar o cache das dependências
+COPY backend/pom.xml .
+RUN mvn dependency:go-offline -B
+
+# 2. Copia a pasta src INTEIRA (respeitando a estrutura de pacotes)
+COPY backend/src ./src
+
+# 3. Compila garantindo que o JAR seja gerado do zero
+RUN mvn clean package -DskipTests
+
+# Stage 2: Runtime com JRE 21 (Imagem leve)
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+# Copia o JAR do estágio de build para a raiz do runtime como app.jar
+COPY --from=builder /app/target/*.jar app.jar
+
+# Exposição da porta interna
+EXPOSE 8080
+
+# Comando de inicialização com limites de memória para evitar instabilidade no Docker
+ENTRYPOINT ["java", "-Xmx512m", "-Xms256m", "-jar", "app.jar"]

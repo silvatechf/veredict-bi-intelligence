@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+@theme {
+  /* --- IDENTIDADE VISUAL VEREDICT --- */
+  --color-brand-green: #10b981;
+  --color-brand-blue: #06b6d4;
+  --color-neural-zinc: #09090b;
+  --color-deep-black: #020202;
+  
+  /* --- REGISTRO DE ANIMAÇÕES AIM --- */
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-aurora: aurora-pulse 15s ease-in-out infinite;
+  --animate-scan: scan-progress 2s infinite;
+  --animate-float: float 5s ease-in-out infinite;
+
+  @keyframes shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+  }
+
+  @keyframes aurora-pulse {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+    50% { transform: translate(3%, -3%) scale(1.05); opacity: 0.25; }
+  }
+
+  @keyframes scan-progress {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-deep-black text-zinc-100 antialiased selection:bg-brand-green/30;
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@layer utilities {
+  /* --- SEMÂNTICA DE RISCO (AUDIT TAGS) --- */
+  .risk-low { 
+    @apply text-[10px] font-black px-2 py-0.5 rounded-full border border-brand-green/20 bg-brand-green/10 text-brand-green uppercase tracking-widest; 
+  }
+  .risk-medium { 
+    @apply text-[10px] font-black px-2 py-0.5 rounded-full border border-amber-500/20 bg-amber-500/10 text-amber-400 uppercase tracking-widest; 
+  }
+  .risk-high { 
+    @apply text-[10px] font-black px-2 py-0.5 rounded-full border border-rose-500/20 bg-rose-500/10 text-rose-400 uppercase tracking-widest; 
+  }
+
+  /* --- GLASSMORPHISM ELITE --- */
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/[0.01] border border-white/[0.05] transition-all duration-700 shadow-2xl;
+  }
+
+  .glass-card-hover {
+    @apply hover:bg-white/[0.03] hover:border-brand-green/20 hover:shadow-[0_0_40px_-15px_rgba(16,185,129,0.15)];
+  }
+
+  /* --- TIPOGRAFIA DE PRESTÍGIO --- */
+  .title-sovereign {
+    @apply font-[1000] tracking-tighter italic;
+    background: linear-gradient(to bottom, #FFFFFF 30%, #71717a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* --- NEURAL SCANNER BAR --- */
+  .scanning-bar {
+    @apply relative overflow-hidden after:content-[''] after:absolute after:inset-0 
+    after:bg-gradient-to-r after:from-transparent after:via-brand-green/20 after:to-transparent 
+    after:animate-scan;
+  }
+}
+
+/* --- AMBIENT ATMOSPHERE (Orbes de Fundo) --- */
+.living-bg {
+  @apply fixed inset-0 z-[-1] bg-deep-black overflow-hidden pointer-events-none;
+}
+
+.orb {
+  @apply absolute rounded-full;
+  width: 80vw; 
+  height: 80vh;
+  filter: blur(120px);
+  animation: var(--animate-aurora);
+  will-change: transform, opacity;
+}
+
+.orb-green { 
+  top: -30%; 
+  left: -10%; 
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+}
+
+.orb-blue { 
+  bottom: -30%; 
+  right: -10%; 
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.04) 0%, transparent 70%);
+  animation-delay: -5s;
+}
+
+/* --- PREMIUM SCROLLBAR --- */
+.custom-scrollbar::-webkit-scrollbar { width: 4px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { 
+  @apply bg-zinc-800 rounded-full transition-colors hover:bg-brand-green;
+}
+
+next-route-announcer, 
+#next-live-tool,
+.next-is-building-announcer {
+    display: none !important;
+}

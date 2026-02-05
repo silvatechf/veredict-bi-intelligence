@@ -1,0 +1,76 @@
+# --- NEURAL SHORTCUTS ---
+ajh:
+  groq:
+    url: https://api.groq.com/openai/v1/chat/completions
+    # 🛡️ AJUSTE: O valor deve ser a chave pura ou uma referência à variável de ambiente
+    key: ${GROQ_API_KEY:}
+  ai-engine:
+    url: ${AJH_AI_ENGINE_URL:http://localhost:8000}
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: veredict-bi-backend
+
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration
+
+  servlet:
+    multipart:
+      max-file-size: 15MB
+      max-request-size: 15MB
+  
+  datasource:
+    # 🌍 THE ENCODING SHIELD: Adicionado parâmetros para garantir UTF-8 total no PostgreSQL
+    url: jdbc:postgresql://localhost:5436/ajh_db?useUnicode=true&characterEncoding=UTF-8&charSet=UTF-8
+    username: ajh_user
+    password: ajh_pass
+    driver-class-name: org.postgresql.Driver
+    
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000 
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop 
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        physical_naming_strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+        
+        # 🛡️ GLOBAL CHARSET ENFORCEMENT
+        connection:
+          charSet: UTF-8
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        
+        boot:
+          allow_jdbc_metadata_access: true
+
+# --- JWT SECURITY CONTRACT ---
+application:
+  security:
+    jwt:
+      # Chave forte para o cluster de segurança
+      secret-key: ${AJH_JWT_SECRET:}
+      expiration: 86400000 # 24h
+
+# --- NEURAL TELEMETRY ---
+logging:
+  level:
+    com.ajh: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
