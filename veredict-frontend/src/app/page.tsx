@@ -40,7 +40,7 @@ export default function LandingPage() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[1200px] border border-brand-green/5 rounded-full opacity-20" />
       </div>
 
-      {/* 🛡️ NAV BAR */}
+      {/*  NAV BAR */}
       <nav className="p-10 flex justify-between items-center max-w-[1600px] mx-auto w-full relative z-50">
         <div className="flex items-center gap-4">
           <div className="w-10 h-10 bg-black border border-brand-green/40 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.2)]">
